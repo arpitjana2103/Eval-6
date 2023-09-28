@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const dotenv = require('dotenv');
+
+const {apiRouter} = require('./routes/apiRoute');
 dotenv.config({path: './config.env'});
 
 const DATABASE = process.env.DATABASE;
@@ -13,9 +15,11 @@ app.use(express.json());
 app.get('/', function (req, res) {
     return res.status(200).json({
         status: 'Success',
-        message: 'Wellcome',
+        message: 'Wellcome Eval 6',
     });
 });
+
+app.use('/api', apiRouter);
 
 app.listen(PORT, function () {
     console.log('Connecting...');
