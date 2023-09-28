@@ -25,6 +25,7 @@ class BlogFeatures {
             if (this.reqQuery.order && this.reqQuery.order === 'desc') {
                 sign = '-';
             }
+
             this.Query = this.Query.sort(sign + sortBy);
         }
 
