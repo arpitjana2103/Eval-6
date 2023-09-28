@@ -7,7 +7,7 @@ class BlogFeatures {
     }
 
     filter() {
-        let reqQueryObj = [...this.reqQuery];
+        let reqQueryObj = {...this.reqQuery};
 
         ['page', 'sort', 'limit', 'fields', 'order'].forEach(function (item) {
             delete reqQueryObj[item];
@@ -30,13 +30,23 @@ class BlogFeatures {
 
         return this;
     }
+
+    search() {
+        if (this.reqQuery.search) {
+            const searchKeyword = this.reqQuery.search;
+            this.Query = this.Query.find({
+                title: {$regex: searchKeyword, $options: 'i'},
+            });
+        }
+        return this;
+    }
 }
 
 const getAllBlogs = async function (req, res) {
     try {
-        const blogs = new BlogFeatures(Blog.find(), req.query);
+        let blogs = new BlogFeatures(Blog.find(), req.query);
 
-        blogs = blogs.filter().sort();
+        blogs = blogs.filter().sort().search();
 
         const docs = await blogs.Query;
 

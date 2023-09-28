@@ -12,7 +12,10 @@ const blogSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
-    likes: Number,
+    likes: {
+        type: Number,
+        default: 0,
+    },
     comment: [Object],
 });
 
