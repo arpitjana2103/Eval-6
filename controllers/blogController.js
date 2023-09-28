@@ -115,4 +115,55 @@ const deleteBlog = async function (req, res) {
     }
 };
 
-module.exports = {getAllBlogs, createBlog, updateBlog, deleteBlog};
+const addLike = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const blog = await Blog.findById(id);
+
+        blog.likes++;
+        await blog.save();
+
+        return res.status(204).json({
+            status: 'success',
+        });
+    } catch (error) {
+        return res.status(400).json({
+            status: 'fail',
+            error: error.message,
+        });
+    }
+};
+
+const addComment = async function (req, res) {
+    try {
+        const id = req.params.id;
+        const blog = await Blog.findById(id);
+
+        const comment = {
+            username: req.user.name,
+            comment: req.body.comment,
+        };
+
+        blog.comment.push(comment);
+        await blog.save();
+
+        return res.status(204).json({
+            status: 'success',
+            message: 'Comment Added Successfully',
+        });
+    } catch (error) {
+        return res.status(400).json({
+            status: 'fail',
+            error: error.message,
+        });
+    }
+};
+
+module.exports = {
+    getAllBlogs,
+    createBlog,
+    updateBlog,
+    deleteBlog,
+    addComment,
+    addLike,
+};

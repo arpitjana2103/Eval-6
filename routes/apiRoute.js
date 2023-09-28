@@ -20,8 +20,8 @@ apiRouter
     .put(blogController.updateBlog)
     .delete(blogController.deleteBlog);
 
-apiRouter.route('/api/blogs/:id/like').patch(blogController.updateBlog);
+apiRouter.route('/api/blogs/:id/like').patch(blogController.addLike);
 
-apiRouter.route('/api/blogs/:id/comment').patch(blogController.updateBlog);
+apiRouter.route('/api/blogs/:id/comment').patch(blogController.addComment);
 
 module.exports = {apiRouter};
