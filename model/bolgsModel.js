@@ -10,7 +10,7 @@ const blogSchema = new mongoose.Schema({
     },
     date: {
         type: Date,
-        default: Data.now(),
+        default: Date.now(),
     },
     likes: Number,
     comment: [Object],
