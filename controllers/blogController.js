@@ -67,6 +67,7 @@ const getAllBlogs = async function (req, res) {
 
 const createBlog = async function (req, res) {
     try {
+        req.body.username = req.user.name;
         const newBlog = await Blog.create(req.body);
 
         return res.status(201).json({
