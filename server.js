@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const dotenv = require('dotenv');
+var cors = require('cors');
 
 const {apiRouter} = require('./routes/apiRoute');
 dotenv.config({path: './config.env'});
@@ -9,7 +10,7 @@ const DATABASE = process.env.DATABASE;
 const PORT = process.env.PORT;
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 app.get('/', function (req, res) {
